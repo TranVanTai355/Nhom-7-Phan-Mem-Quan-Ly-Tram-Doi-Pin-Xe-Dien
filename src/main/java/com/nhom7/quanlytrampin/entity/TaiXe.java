@@ -4,29 +4,25 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "TaiXe")
-public class TaiXe {
+public class TaiXe { 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MaTaiXe")
-    private Long maTaiXe;
+    private Long maTaiXe; 
 
-    @Column(name = "HoTen", nullable = false)
-    private String hoTen;
+    @Column(nullable = false)
+    private String hoTen; 
 
-    @Column(name = "SoDienThoai", unique = true, nullable = false)
-    private String soDienThoai;
+    @Column(unique = true, nullable = false)
+    private String soDienThoai; 
 
-    @Column(name = "Email", unique = true)
+    @Column(unique = true)
     private String email;
 
-    @Column(name = "MatKhau", nullable = false)
+    @Column(nullable = false)
     private String matKhau; 
-
     @OneToMany(mappedBy = "taiXe")
     private List<PhuongTien> danhSachPhuongTien;
-
 
     public Long getMaTaiXe() {
         return maTaiXe;
@@ -75,4 +71,6 @@ public class TaiXe {
     public void setDanhSachPhuongTien(List<PhuongTien> danhSachPhuongTien) {
         this.danhSachPhuongTien = danhSachPhuongTien;
     }
+
+    
 }
