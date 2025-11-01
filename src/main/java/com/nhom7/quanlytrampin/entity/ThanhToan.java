@@ -84,5 +84,4 @@ public class ThanhToan {
         this.goiThuePin = goiThuePin;
     }
     
-    // --- BẮT BUỘC: Xóa Getters/Setters cũ và Generate LẠI ---
 }
