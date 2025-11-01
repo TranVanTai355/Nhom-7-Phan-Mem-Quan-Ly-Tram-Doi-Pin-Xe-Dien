@@ -3,21 +3,49 @@ package com.nhom7.quanlytrampin.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "PhuongTien")
-public class PhuongTien {
+public class PhuongTien { 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MaXe")
-    private Long maXe;
+    private Long maXe; 
 
-    @Column(name = "LoaiXe")
-    private String loaiXe;
-
-    @Column(name = "LoaiPin") 
+    private String loaiXe; 
     private String loaiPin;
 
     @ManyToOne
-    @JoinColumn(name = "MaTaiXe", nullable = false) 
+    @JoinColumn(name = "ma_tai_xe", nullable = false) 
     private TaiXe taiXe;
+
+    public Long getMaXe() {
+        return maXe;
+    }
+
+    public void setMaXe(Long maXe) {
+        this.maXe = maXe;
+    }
+
+    public String getLoaiXe() {
+        return loaiXe;
+    }
+
+    public void setLoaiXe(String loaiXe) {
+        this.loaiXe = loaiXe;
+    }
+
+    public String getLoaiPin() {
+        return loaiPin;
+    }
+
+    public void setLoaiPin(String loaiPin) {
+        this.loaiPin = loaiPin;
+    }
+
+    public TaiXe getTaiXe() {
+        return taiXe;
+    }
+
+    public void setTaiXe(TaiXe taiXe) {
+        this.taiXe = taiXe;
+    }
+
 }
