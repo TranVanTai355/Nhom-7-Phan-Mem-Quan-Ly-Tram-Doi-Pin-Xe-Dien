@@ -16,36 +16,51 @@ public class PhuongTien {
     @JoinColumn(name = "ma_tai_xe", nullable = false) 
     private TaiXe taiXe;
 
-    public Long getMaXe() {
-        return maXe;
+        public Long getMaTaiXe() {
+        return maTaiXe;
     }
 
-    public void setMaXe(Long maXe) {
-        this.maXe = maXe;
+    public void setMaTaiXe(Long maTaiXe) {
+        this.maTaiXe = maTaiXe;
     }
 
-    public String getLoaiXe() {
-        return loaiXe;
+    public String getHoTen() {
+        return hoTen;
     }
 
-    public void setLoaiXe(String loaiXe) {
-        this.loaiXe = loaiXe;
+    public void setHoTen(String hoTen) {
+        this.hoTen = hoTen;
     }
 
-    public String getLoaiPin() {
-        return loaiPin;
+    public String getSoDienThoai() {
+        return soDienThoai;
     }
 
-    public void setLoaiPin(String loaiPin) {
-        this.loaiPin = loaiPin;
+    public void setSoDienThoai(String soDienThoai) {
+        this.soDienThoai = soDienThoai;
     }
 
-    public TaiXe getTaiXe() {
-        return taiXe;
+    public String getEmail() {
+        return email;
     }
 
-    public void setTaiXe(TaiXe taiXe) {
-        this.taiXe = taiXe;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
+    public String getMatKhau() {
+        return matKhau;
+    }
+
+    public void setMatKhau(String matKhau) {
+        this.matKhau = matKhau;
+    }
+
+    public List<PhuongTien> getDanhSachPhuongTien() {
+        return danhSachPhuongTien;
+    }
+
+    public void setDanhSachPhuongTien(List<PhuongTien> danhSachPhuongTien) {
+        this.danhSachPhuongTien = danhSachPhuongTien;
+    }
 }
