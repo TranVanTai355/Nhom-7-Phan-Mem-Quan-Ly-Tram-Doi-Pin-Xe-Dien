@@ -11,4 +11,5 @@ public interface PinRepository {
     List<Pin> findByfindByLoaiPinVaTrangThaiPin(String loaiPin, String trangThai);
 
     Optional<Pin> findFirstByTramPin_MaTramVaLoaiPinVaTrangThaiPin(Long maTram, String loaiPin, String trangThai);
+    List<Pin> findByTramPin_MaTramPin(Long maTramPin);
 }

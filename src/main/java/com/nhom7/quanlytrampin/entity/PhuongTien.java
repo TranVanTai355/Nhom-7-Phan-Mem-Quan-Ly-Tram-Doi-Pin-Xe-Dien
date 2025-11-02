@@ -3,64 +3,49 @@ package com.nhom7.quanlytrampin.entity;
 import jakarta.persistence.*;
 
 @Entity
-public class PhuongTien { 
+public class PhuongTien {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long maXe; 
+    private Long maXe;
 
-    private String loaiXe; 
+    private String loaiXe;
     private String loaiPin;
 
     @ManyToOne
-    @JoinColumn(name = "ma_tai_xe", nullable = false) 
+    @JoinColumn(name = "ma_tai_xe", nullable = false)
     private TaiXe taiXe;
 
-        public Long getMaTaiXe() {
-        return maTaiXe;
+    // --- Getters & Setters ---
+    public Long getMaXe() {
+        return maXe;
     }
 
-    public void setMaTaiXe(Long maTaiXe) {
-        this.maTaiXe = maTaiXe;
+    public void setMaXe(Long maXe) {
+        this.maXe = maXe;
     }
 
-    public String getHoTen() {
-        return hoTen;
+    public String getLoaiXe() {
+        return loaiXe;
     }
 
-    public void setHoTen(String hoTen) {
-        this.hoTen = hoTen;
+    public void setLoaiXe(String loaiXe) {
+        this.loaiXe = loaiXe;
     }
 
-    public String getSoDienThoai() {
-        return soDienThoai;
+    public String getLoaiPin() {
+        return loaiPin;
     }
 
-    public void setSoDienThoai(String soDienThoai) {
-        this.soDienThoai = soDienThoai;
+    public void setLoaiPin(String loaiPin) {
+        this.loaiPin = loaiPin;
     }
 
-    public String getEmail() {
-        return email;
+    public TaiXe getTaiXe() {
+        return taiXe;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getMatKhau() {
-        return matKhau;
-    }
-
-    public void setMatKhau(String matKhau) {
-        this.matKhau = matKhau;
-    }
-
-    public List<PhuongTien> getDanhSachPhuongTien() {
-        return danhSachPhuongTien;
-    }
-
-    public void setDanhSachPhuongTien(List<PhuongTien> danhSachPhuongTien) {
-        this.danhSachPhuongTien = danhSachPhuongTien;
+    public void setTaiXe(TaiXe taiXe) {
+        this.taiXe = taiXe;
     }
 }

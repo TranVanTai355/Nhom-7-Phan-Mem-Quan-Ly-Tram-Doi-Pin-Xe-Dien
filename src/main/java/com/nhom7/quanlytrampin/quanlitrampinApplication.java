@@ -8,6 +8,7 @@ public class quanlitrampinApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(quanlitrampinApplication.class, args);
+		System.out.println("EV Battery Swap Station Management System started.");
 	}
 
 }
