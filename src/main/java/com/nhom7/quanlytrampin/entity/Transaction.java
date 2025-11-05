@@ -37,4 +37,82 @@ public class Transaction {
     @Column(name = "is_paid")
     private boolean isPaid;
 
-   
+    // Constructors
+    public Transaction() {
+        this.timestamp = LocalDateTime.now();
+        this.isPaid = false;
+    }
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Battery getOldBattery() {
+        return oldBattery;
+    }
+
+    public void setOldBattery(Battery oldBattery) {
+        this.oldBattery = oldBattery;
+    }
+
+    public Battery getNewBattery() {
+        return newBattery;
+    }
+
+    public void setNewBattery(Battery newBattery) {
+        this.newBattery = newBattery;
+    }
+
+    public Long getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(Long driverId) {
+        this.driverId = driverId;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public boolean isPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(boolean paid) {
+        isPaid = paid;
+    }
+}
