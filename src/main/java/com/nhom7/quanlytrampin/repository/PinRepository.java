@@ -7,9 +7,26 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-public interface PinRepository {
-    List<Pin> findByfindByLoaiPinVaTrangThaiPin(String loaiPin, String trangThai);
+@Repository
+public interface PinRepository extends JpaRepository<Pin, Long> {
+  
+    List<Pin> findByLoaiPinAndTrangThai(String loaiPin, String trangThai);
 
-    Optional<Pin> findFirstByTramPin_MaTramVaLoaiPinVaTrangThaiPin(Long maTram, String loaiPin, String trangThai);
+    Optional<Pin> findFirstByTramPin_MaTramPinAndLoaiPinAndTrangThai(
+        Long maTramPin, 
+        String loaiPin, 
+        String trangThai
+    );
+    
     List<Pin> findByTramPin_MaTramPin(Long maTramPin);
+    
+    long countByTramPin_MaTramPinAndTrangThai(Long maTramPin, String trangThai);
+    
+    List<Pin> findByTramPin_MaTramPinAndLoaiPin(Long maTramPin, String loaiPin);
+    
+    long countByTramPin_MaTramPinAndLoaiPinAndTrangThai(
+        Long maTramPin, 
+        String loaiPin, 
+        String trangThai
+    );
 }
