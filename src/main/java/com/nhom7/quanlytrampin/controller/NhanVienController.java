@@ -1,5 +1,7 @@
 package com.nhom7.quanlytrampin.controller;
 
+// Thêm import cho Battery (giả định đường dẫn)
+import com.nhom7.quanlytrampin.entity.Battery; 
 import com.nhom7.quanlytrampin.entity.Transaction;
 import com.nhom7.quanlytrampin.service.InventoryService;
 import com.nhom7.quanlytrampin.service.BatterySwapService;
@@ -12,11 +14,14 @@ import java.util.Map;
 @RequestMapping("/api/staff")
 public class NhanVienController {
 
-    @Autowired
-    private InventoryService inventoryService;
+    private final InventoryService inventoryService;
+    private final BatterySwapService batterySwapService;
 
     @Autowired
-    private BatterySwapService batterySwapService;
+    public NhanVienController(InventoryService inventoryService, BatterySwapService batterySwapService) {
+        this.inventoryService = inventoryService;
+        this.batterySwapService = batterySwapService;
+    }
 
     @GetMapping("/inventory/track")
     public Map<String, Long> trackBatteries() {
@@ -24,14 +29,17 @@ public class NhanVienController {
     }
 
     @GetMapping("/inventory/categorize")
-    public Map<String, List<?>> categorize() {
+   
+    public Map<String, List<Battery>> categorize() {
         return inventoryService.categorizeBatteries();
     }
 
+   
     @PostMapping("/swap/confirm")
     public Transaction confirmSwap(@RequestParam Long oldBatteryId,
                                    @RequestParam Long newBatteryId,
                                    @RequestParam Long driverId) {
+        
         return batterySwapService.confirmSwap(oldBatteryId, newBatteryId, driverId);
     }
 
