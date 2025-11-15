@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtService {
 
-    // Đây là Khóa bí mật, bạn có thể thay bằng bất cứ chuỗi nào
+
     public static final String SECRET = "MATKHAULAKHONGBIET";
 
     public String extractUsername(String token) {
@@ -52,7 +52,6 @@ public class JwtService {
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        // Bạn có thể thêm các claims khác (ví dụ: role) vào đây nếu muốn
         return createToken(claims, userDetails.getUsername());
     }
 
@@ -61,7 +60,7 @@ public class JwtService {
                 .setClaims(claims)
                 .setSubject(userName)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // Token hết hạn sau 10 giờ
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) 
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
     }
 
