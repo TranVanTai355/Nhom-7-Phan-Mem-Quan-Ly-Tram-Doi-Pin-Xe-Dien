@@ -46,9 +46,6 @@ public class AdminController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    // ============================
-    // 1. QUẢN LÝ TRẠM & PIN
-    // ============================
 
     @GetMapping("/stations")
     public List<TramPin> getAllStations() {
@@ -87,14 +84,12 @@ public class AdminController {
         return ResponseEntity.ok(supportRequestRepository.save(request));
     }
 
-    // ============================
-    // 2. QUẢN LÝ NHÂN VIÊN
-    // ============================
+
 
     @PostMapping("/staff")
     public NhanVien createStaff(@RequestBody NhanVien nhanVien) {
 
-        // SỬA ĐÚNG GETTER/SETTER password
+
         String encodedPassword = passwordEncoder.encode(nhanVien.getPassword());
         nhanVien.setPassword(encodedPassword);
 
@@ -111,15 +106,11 @@ public class AdminController {
         return goiThuePinRepository.save(goiThuePin);
     }
 
-    // ============================
-    // 3. BÁO CÁO & THỐNG KÊ
-    // ============================
-
     @GetMapping("/reports/total-revenue")
     public Double getTotalRevenue() {
         return transactionRepository.findAll()
                 .stream()
-                .filter(Transaction::isPaid) // SỬA ĐÚNG
+                .filter(Transaction::isPaid) 
                 .mapToDouble(Transaction::getAmount)
                 .sum();
     }
