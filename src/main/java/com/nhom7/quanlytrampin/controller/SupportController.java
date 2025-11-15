@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+// THÊM CÁC IMPORT CÒN THIẾU
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.nhom7.quanlytrampin.dto.SupportResponseDto;
 import com.nhom7.quanlytrampin.entity.Feedback;
 import com.nhom7.quanlytrampin.entity.SupportRequest;
@@ -19,11 +24,14 @@ import com.nhom7.quanlytrampin.dto.FeedbackDto;
 
 import java.util.List;
 
-
+// THÊM ANNOTATION CHO CONTROLLER
+@RestController
+@RequestMapping("/api")
 public class SupportController {
     
     private final SupportService supportService;
 
+    @Autowired // Thêm Autowired (hoặc để ở constructor là đủ)
     public SupportController(SupportService supportService) {
         this.supportService = supportService;
     }

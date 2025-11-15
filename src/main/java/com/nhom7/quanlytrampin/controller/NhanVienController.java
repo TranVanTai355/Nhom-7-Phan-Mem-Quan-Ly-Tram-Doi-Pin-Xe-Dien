@@ -1,7 +1,7 @@
 package com.nhom7.quanlytrampin.controller;
 
-// Thêm import cho Battery (giả định đường dẫn)
-import com.nhom7.quanlytrampin.entity.Battery; 
+// Thêm import cho Pin
+import com.nhom7.quanlytrampin.entity.Pin; 
 import com.nhom7.quanlytrampin.entity.Transaction;
 import com.nhom7.quanlytrampin.service.InventoryService;
 import com.nhom7.quanlytrampin.service.BatterySwapService;
@@ -29,16 +29,16 @@ public class NhanVienController {
     }
 
     @GetMapping("/inventory/categorize")
-   
-    public Map<String, List<Battery>> categorize() {
+    // Sửa kiểu trả về Battery -> Pin
+    public Map<String, List<Pin>> categorize() { 
         return inventoryService.categorizeBatteries();
     }
 
-   
+    
     @PostMapping("/swap/confirm")
     public Transaction confirmSwap(@RequestParam Long oldBatteryId,
-                                   @RequestParam Long newBatteryId,
-                                   @RequestParam Long driverId) {
+                                    @RequestParam Long newBatteryId,
+                                    @RequestParam Long driverId) {
         
         return batterySwapService.confirmSwap(oldBatteryId, newBatteryId, driverId);
     }
@@ -52,7 +52,7 @@ public class NhanVienController {
 
     @PutMapping("/battery/inspect")
     public String inspectBattery(@RequestParam Long batteryId,
-                                 @RequestParam String condition) {
+                                    @RequestParam String condition) {
         batterySwapService.inspectReturnedBattery(batteryId, condition);
         return "Battery inspection updated.";
     }

@@ -1,7 +1,9 @@
 package com.nhom7.quanlytrampin.service;
 
-import com.nhom7.quanlytrampin.entity.Battery;
-import com.nhom7.quanlytrampin.repository.BatteryRepository;
+// Sửa Battery -> Pin
+import com.nhom7.quanlytrampin.entity.Pin; 
+// Sửa BatteryRepository -> PinRepository
+import com.nhom7.quanlytrampin.repository.PinRepository; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
@@ -11,17 +13,18 @@ import java.util.stream.Collectors;
 public class InventoryService {
 
     @Autowired
-    private BatteryRepository batteryRepository;
+    private PinRepository pinRepository; // Sửa tên Repository
 
     public Map<String, Long> trackBatteries() {
-        List<Battery> batteries = batteryRepository.findAll();
-        return batteries.stream()
-                .collect(Collectors.groupingBy(Battery::getStatus, Collectors.counting()));
+        List<Pin> pins = pinRepository.findAll(); // Sửa tên biến và repo
+        return pins.stream()
+                .collect(Collectors.groupingBy(Pin::getTrangThai, Collectors.counting())); // Dùng Pin::getTrangThai
     }
 
-    public Map<String, List<Battery>> categorizeBatteries() {
-        List<Battery> batteries = batteryRepository.findAll();
-        return batteries.stream()
-                .collect(Collectors.groupingBy(b -> b.getModel() + "_" + b.getCapacity() + "_" + b.getStatus()));
+    // Sửa kiểu trả về Battery -> Pin
+    public Map<String, List<Pin>> categorizeBatteries() { 
+        List<Pin> pins = pinRepository.findAll(); // Sửa tên biến và repo
+        return pins.stream()
+                .collect(Collectors.groupingBy(p -> p.getModel() + "_" + p.getDungLuong() + "_" + p.getTrangThai())); // Dùng các getter của Pin
     }
 }

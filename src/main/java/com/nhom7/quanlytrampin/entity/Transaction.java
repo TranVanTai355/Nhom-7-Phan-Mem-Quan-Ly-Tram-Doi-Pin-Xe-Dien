@@ -3,6 +3,9 @@ package com.nhom7.quanlytrampin.entity;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+// Thêm import Pin
+import com.nhom7.quanlytrampin.entity.Pin; 
+
 @Entity
 @Table(name = "Transaction")
 public class Transaction {
@@ -13,11 +16,11 @@ public class Transaction {
 
     @ManyToOne
     @JoinColumn(name = "old_battery_id")
-    private Battery oldBattery;
+    private Pin oldBattery; // Sửa Battery -> Pin
 
     @ManyToOne
     @JoinColumn(name = "new_battery_id")
-    private Battery newBattery;
+    private Pin newBattery; // Sửa Battery -> Pin
 
     @Column(name = "driver_id")
     private Long driverId;
@@ -52,19 +55,23 @@ public class Transaction {
         this.id = id;
     }
 
-    public Battery getOldBattery() {
+    // Sửa Battery -> Pin
+    public Pin getOldBattery() {
         return oldBattery;
     }
 
-    public void setOldBattery(Battery oldBattery) {
+    // Sửa Battery -> Pin
+    public void setOldBattery(Pin oldBattery) {
         this.oldBattery = oldBattery;
     }
 
-    public Battery getNewBattery() {
+    // Sửa Battery -> Pin
+    public Pin getNewBattery() {
         return newBattery;
     }
 
-    public void setNewBattery(Battery newBattery) {
+    // Sửa Battery -> Pin
+    public void setNewBattery(Pin newBattery) {
         this.newBattery = newBattery;
     }
 

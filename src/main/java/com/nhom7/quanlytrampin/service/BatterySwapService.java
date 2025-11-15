@@ -1,7 +1,11 @@
 package com.nhom7.quanlytrampin.service;
 
 import com.nhom7.quanlytrampin.entity.*;
+// Thêm import
+import com.nhom7.quanlytrampin.entity.Pin;
 import com.nhom7.quanlytrampin.repository.*;
+// Sửa BatteryRepository -> PinRepository
+import com.nhom7.quanlytrampin.repository.PinRepository; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
@@ -10,19 +14,21 @@ import java.time.LocalDateTime;
 public class BatterySwapService {
 
     @Autowired
-    private BatteryRepository batteryRepository;
+    private PinRepository pinRepository; // Sửa
 
     @Autowired
     private TransactionRepository transactionRepository;
 
     public Transaction confirmSwap(Long oldBatteryId, Long newBatteryId, Long driverId) {
-        Battery oldBattery = batteryRepository.findById(oldBatteryId).orElseThrow();
-        Battery newBattery = batteryRepository.findById(newBatteryId).orElseThrow();
+        // Sửa Battery -> Pin
+        Pin oldBattery = pinRepository.findById(oldBatteryId).orElseThrow(() -> new RuntimeException("Không tìm thấy pin cũ"));
+        Pin newBattery = pinRepository.findById(newBatteryId).orElseThrow(() -> new RuntimeException("Không tìm thấy pin mới"));
 
-        oldBattery.setStatus("Charging");
-        newBattery.setStatus("InUse");
-        batteryRepository.save(oldBattery);
-        batteryRepository.save(newBattery);
+        // Dùng trạng thái Tiếng Việt cho đồng bộ
+        oldBattery.setTrangThai("Đang sạc"); 
+        newBattery.setTrangThai("Đang sử dụng"); 
+        pinRepository.save(oldBattery); // Sửa repo
+        pinRepository.save(newBattery); // Sửa repo
 
         Transaction tx = new Transaction();
         tx.setOldBattery(oldBattery);
@@ -35,7 +41,7 @@ public class BatterySwapService {
     }
 
     public void recordOnsitePayment(Long transactionId, double amount) {
-        Transaction tx = transactionRepository.findById(transactionId).orElseThrow();
+        Transaction tx = transactionRepository.findById(transactionId).orElseThrow(() -> new RuntimeException("Không tìm thấy giao dịch"));
         tx.setPaymentMethod("OnSite");
         tx.setAmount(amount);
         tx.setPaid(true);
@@ -43,9 +49,14 @@ public class BatterySwapService {
     }
 
     public void inspectReturnedBattery(Long batteryId, String condition) {
-        Battery b = batteryRepository.findById(batteryId).orElseThrow();
-        b.setCondition(condition);
-        b.setStatus(condition.equals("Good") ? "Charged" : "Maintenance");
-        batteryRepository.save(b);
+        // Sửa Battery -> Pin
+        Pin p = pinRepository.findById(batteryId).orElseThrow(() -> new RuntimeException("Không tìm thấy pin"));
+        
+        p.setCondition(condition); // Dùng trường "condition" ta vừa thêm
+        
+        // Dùng trạng thái Tiếng Việt (Giả định "Good" là "Sẵn sàng")
+        p.setTrangThai(condition.equalsIgnoreCase("Good") ? "Sẵn sàng" : "Bảo trì");
+        
+        pinRepository.save(p); // Sửa repo
     }
 }
