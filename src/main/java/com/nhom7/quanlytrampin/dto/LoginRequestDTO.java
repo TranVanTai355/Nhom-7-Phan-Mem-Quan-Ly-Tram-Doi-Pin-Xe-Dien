@@ -3,8 +3,7 @@ package com.nhom7.quanlytrampin.dto;
 public class LoginRequestDTO {
     private String username;
     private String matKhau;
-
-    // Thêm Getter và Setter cho 2 trường này
+    
     public String getUsername() {
         return username;
     }
