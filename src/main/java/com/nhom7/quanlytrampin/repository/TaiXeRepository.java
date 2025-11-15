@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface TaiXeRepository extends JpaRepository<TaiXe, Long> {
 
     Optional<TaiXe> findByEmail(String email);
+    Optional<TaiXe> findByUsername(String username);
 }
