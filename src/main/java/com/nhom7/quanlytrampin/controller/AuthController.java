@@ -1,6 +1,7 @@
 package com.nhom7.quanlytrampin.controller;
 
 import com.nhom7.quanlytrampin.entity.TaiXe;
+import com.nhom7.quanlytrampin.dto.LoginRequestDTO;
 import com.nhom7.quanlytrampin.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,5 +23,11 @@ public class AuthController {
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage()); 
         }
+    }
+
+@PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequest) {
+ 
+        return ResponseEntity.ok("Login API đã được gọi!");
     }
 }
