@@ -11,5 +11,5 @@ import java.time.LocalDateTime;
 public interface LichHenRepository extends JpaRepository<LichHen, Long> {
     List<LichHen> findByTaiXe_MaTaiXe(Long maTaiXe);
 
-    Optional<LichHen> findByTaiXe_MaTaiXeVaThoiGianHen(Long maTaiXe, LocalDateTime thoiGianHen);
+    Optional<LichHen> findByTaiXe_MaTaiXeAndThoiGianHen(Long maTaiXe, LocalDateTime thoiGianHen);
 }
