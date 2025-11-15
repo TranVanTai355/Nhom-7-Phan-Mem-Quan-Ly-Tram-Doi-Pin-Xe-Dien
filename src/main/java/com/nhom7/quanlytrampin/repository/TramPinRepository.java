@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface TramPinRepository extends JpaRepository<TramPin, Long> {
     List<TramPin> findByTrangThaiHoatDong(boolean status);
 
-    Optional<TramPin> findByTenTram(String tenTram);
+    Optional<TramPin> findByTenTramPin(String tenTramPin);
 }
