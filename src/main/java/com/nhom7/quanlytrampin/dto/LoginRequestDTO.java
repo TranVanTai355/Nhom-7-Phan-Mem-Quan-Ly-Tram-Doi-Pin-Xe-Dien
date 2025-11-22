@@ -3,7 +3,7 @@ package com.nhom7.quanlytrampin.dto;
 public class LoginRequestDTO {
     private String username;
     private String matKhau;
-    
+
     public String getUsername() {
         return username;
     }
