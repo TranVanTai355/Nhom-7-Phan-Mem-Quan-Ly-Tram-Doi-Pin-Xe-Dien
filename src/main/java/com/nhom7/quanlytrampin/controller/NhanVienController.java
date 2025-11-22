@@ -1,6 +1,5 @@
 package com.nhom7.quanlytrampin.controller;
 
-// Thêm import cho Pin
 import com.nhom7.quanlytrampin.entity.Pin; 
 import com.nhom7.quanlytrampin.entity.Transaction;
 import com.nhom7.quanlytrampin.service.InventoryService;
