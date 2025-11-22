@@ -6,6 +6,8 @@ import com.nhom7.quanlytrampin.repository.PhuongTienRepository;
 import com.nhom7.quanlytrampin.repository.TaiXeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -20,6 +22,16 @@ public class TaiXeController {
 
     @Autowired
     private PhuongTienRepository phuongTienRepository;
+
+    @GetMapping("/profile")
+    public ResponseEntity<?> getMyProfile() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+
+        return taiXeRepository.findByUsername(currentUsername)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getDriver(@PathVariable Long id) {
