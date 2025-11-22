@@ -20,15 +20,14 @@ public class BatterySwapService {
     private TransactionRepository transactionRepository;
 
     public Transaction confirmSwap(Long oldBatteryId, Long newBatteryId, Long driverId) {
-        // Sửa Battery -> Pin
+        
         Pin oldBattery = pinRepository.findById(oldBatteryId).orElseThrow(() -> new RuntimeException("Không tìm thấy pin cũ"));
         Pin newBattery = pinRepository.findById(newBatteryId).orElseThrow(() -> new RuntimeException("Không tìm thấy pin mới"));
 
-        // Dùng trạng thái Tiếng Việt cho đồng bộ
         oldBattery.setTrangThai("Đang sạc"); 
         newBattery.setTrangThai("Đang sử dụng"); 
-        pinRepository.save(oldBattery); // Sửa repo
-        pinRepository.save(newBattery); // Sửa repo
+        pinRepository.save(oldBattery); 
+        pinRepository.save(newBattery); 
 
         Transaction tx = new Transaction();
         tx.setOldBattery(oldBattery);
@@ -49,14 +48,14 @@ public class BatterySwapService {
     }
 
     public void inspectReturnedBattery(Long batteryId, String condition) {
-        // Sửa Battery -> Pin
+        
         Pin p = pinRepository.findById(batteryId).orElseThrow(() -> new RuntimeException("Không tìm thấy pin"));
         
-        p.setCondition(condition); // Dùng trường "condition" ta vừa thêm
+        p.setCondition(condition); 
         
-        // Dùng trạng thái Tiếng Việt (Giả định "Good" là "Sẵn sàng")
+        
         p.setTrangThai(condition.equalsIgnoreCase("Good") ? "Sẵn sàng" : "Bảo trì");
         
-        pinRepository.save(p); // Sửa repo
+        pinRepository.save(p); 
     }
 }
