@@ -79,16 +79,14 @@ public class AdminController {
         SupportRequest request = supportRequestRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Yêu cầu hỗ trợ không tồn tại"));
 
-        request.setStatus("RESOLVED"); // SỬA ĐÚNG THEO ENTITY
+        request.setStatus("RESOLVED"); 
 
         return ResponseEntity.ok(supportRequestRepository.save(request));
     }
 
 
-
     @PostMapping("/staff")
     public NhanVien createStaff(@RequestBody NhanVien nhanVien) {
-
 
         String encodedPassword = passwordEncoder.encode(nhanVien.getPassword());
         nhanVien.setPassword(encodedPassword);
@@ -105,6 +103,7 @@ public class AdminController {
     public GoiThuePin createSubscriptionPlan(@RequestBody GoiThuePin goiThuePin) {
         return goiThuePinRepository.save(goiThuePin);
     }
+
 
     @GetMapping("/reports/total-revenue")
     public Double getTotalRevenue() {
