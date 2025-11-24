@@ -1,5 +1,6 @@
 package com.nhom7.quanlytrampin.config;
 
+import com.nhom7.quanlytrampin.repository.NhanVienRepository; 
 import com.nhom7.quanlytrampin.repository.TaiXeRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,15 +17,28 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class ApplicationConfig {
 
     private final TaiXeRepository taiXeRepository;
+    private final NhanVienRepository nhanVienRepository; 
 
-    public ApplicationConfig(TaiXeRepository taiXeRepository) {
+    public ApplicationConfig(TaiXeRepository taiXeRepository, NhanVienRepository nhanVienRepository) {
         this.taiXeRepository = taiXeRepository;
+        this.nhanVienRepository = nhanVienRepository;
     }
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> taiXeRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return username -> {
+            var taiXe = taiXeRepository.findByUsername(username);
+            if (taiXe.isPresent()) {
+                return taiXe.get();
+            }
+
+            var nhanVien = nhanVienRepository.findByUsername(username);
+            if (nhanVien.isPresent()) {
+                return nhanVien.get();
+            }
+         
+            throw new UsernameNotFoundException("User not found: " + username);
+        };
     }
 
     @Bean
