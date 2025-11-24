@@ -12,4 +12,5 @@ public interface LichHenRepository extends JpaRepository<LichHen, Long> {
     List<LichHen> findByTaiXe_MaTaiXe(Long maTaiXe);
 
     Optional<LichHen> findByTaiXe_MaTaiXeAndThoiGianHen(Long maTaiXe, LocalDateTime thoiGianHen);
+    List<LichHen> findByTramPin_MaTramPin(Long maTramPin);
 }
