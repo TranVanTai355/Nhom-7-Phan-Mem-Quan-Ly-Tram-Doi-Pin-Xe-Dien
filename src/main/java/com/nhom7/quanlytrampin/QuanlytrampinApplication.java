@@ -4,11 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class QuanlytrampinApplication { // Đổi tên class cho đúng quy ước
+public class QuanlytrampinApplication { 
 
     public static void main(String[] args) {
-        SpringApplication.run(QuanlytrampinApplication.class, args); // Cập nhật tên class
+        SpringApplication.run(QuanlytrampinApplication.class, args); 
         System.out.println("EV Battery Swap Station Management System started.");
     }
-
 }
