@@ -1,6 +1,7 @@
 package com.nhom7.quanlytrampin.entity;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
 @Entity
@@ -21,10 +22,14 @@ public class TramPin {
     private Boolean trangThaiHoatDong;
 
     @OneToMany(mappedBy = "tramPin")
+    @JsonIgnore
     private List<Pin> danhsachPin;
 
     @OneToMany(mappedBy = "tramPin")
+    @JsonIgnore
     private List<LichHen> danhsachLichHen;
+
+
 
     public Long getMaTramPin() {
         return maTramPin;
