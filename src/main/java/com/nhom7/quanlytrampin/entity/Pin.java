@@ -26,10 +26,9 @@ public class Pin {
 
     @Column(name = "Model")
     private String model;
-    
-    // THÊM MỚI: Thêm trường 'condition' từ entity Battery đã xóa
+
     @Column(name = "TinhTrang") 
-    private String condition; // Good, Fair, Poor
+    private String condition; 
 
     @Column(name = "NgayCapNhatTrangThai")
     private LocalDateTime ngayCapNhatTrangThai; 
@@ -57,7 +56,6 @@ public class Pin {
     public String getModel() { return model; }
     public void setModel(String model) { this.model = model; }
 
-    // THÊM MỚI: Getter/Setter cho condition
     public String getCondition() { return condition; }
     public void setCondition(String condition) { this.condition = condition; }
 
