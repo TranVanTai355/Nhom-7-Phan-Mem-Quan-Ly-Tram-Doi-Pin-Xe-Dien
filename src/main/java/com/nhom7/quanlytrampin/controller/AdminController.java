@@ -13,85 +13,26 @@ import java.util.List;
 @RequestMapping("/api/admin")
 public class AdminController {
 
-    private final ThanhToanRepository thanhToanRepository;
-    private final TramPinRepository tramPinRepository;
-    private final PinRepository pinRepository;
-    private final TaiXeRepository taiXeRepository;
-    private final NhanVienRepository nhanVienRepository;
-    private final GoiThuePinRepository goiThuePinRepository;
-    private final SupportRequestRepository supportRequestRepository;
-    private final TransactionRepository transactionRepository;
-    private final PasswordEncoder passwordEncoder;
-
-    @Autowired
-    public AdminController(
-            ThanhToanRepository thanhToanRepository,
-            TramPinRepository tramPinRepository,
-            PinRepository pinRepository,
-            TaiXeRepository taiXeRepository,
-            NhanVienRepository nhanVienRepository,
-            GoiThuePinRepository goiThuePinRepository,
-            SupportRequestRepository supportRequestRepository,
-            TransactionRepository transactionRepository,
-            PasswordEncoder passwordEncoder) {
-
-        this.thanhToanRepository = thanhToanRepository;
-        this.tramPinRepository = tramPinRepository;
-        this.pinRepository = pinRepository;
-        this.taiXeRepository = taiXeRepository;
-        this.nhanVienRepository = nhanVienRepository;
-        this.goiThuePinRepository = goiThuePinRepository;
-        this.supportRequestRepository = supportRequestRepository;
-        this.transactionRepository = transactionRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
-
-
-    @GetMapping("/stations")
-    public List<TramPin> getAllStations() {
-        return tramPinRepository.findAll();
-    }
-
-    @PostMapping("/stations")
-    public TramPin createStation(@RequestBody TramPin tramPin) {
-        return tramPinRepository.save(tramPin);
-    }
-
-    @PutMapping("/pins/{id}/dispatch/{stationId}")
-    public ResponseEntity<Pin> dispatchBattery(
-            @PathVariable Long id,
-            @PathVariable Long stationId) {
-
-        Pin pin = pinRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Pin không tồn tại"));
-
-        TramPin tramPin = tramPinRepository.findById(stationId)
-                .orElseThrow(() -> new RuntimeException("Trạm pin không tồn tại"));
-
-        pin.setTramPin(tramPin);
-        pin.setTrangThai("Sẵn sàng");
-
-        return ResponseEntity.ok(pinRepository.save(pin));
-    }
-
-    @PutMapping("/requests/{id}/resolve")
-    public ResponseEntity<SupportRequest> resolveSupportRequest(@PathVariable Long id) {
-        SupportRequest request = supportRequestRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Yêu cầu hỗ trợ không tồn tại"));
-
-        request.setStatus("RESOLVED"); 
-
-        return ResponseEntity.ok(supportRequestRepository.save(request));
-    }
-
+    @Autowired private TramPinRepository tramPinRepository;
+    @Autowired private PinRepository pinRepository;
+    @Autowired private TaiXeRepository taiXeRepository;
+    @Autowired private NhanVienRepository nhanVienRepository; 
+    @Autowired private TransactionRepository transactionRepository;
+    @Autowired private PasswordEncoder passwordEncoder;
 
     @PostMapping("/staff")
     public NhanVien createStaff(@RequestBody NhanVien nhanVien) {
-
-        String encodedPassword = passwordEncoder.encode(nhanVien.getPassword());
-        nhanVien.setPassword(encodedPassword);
-
+        if (nhanVienRepository.findByUsername(nhanVien.getUsername()).isPresent()) {
+            throw new RuntimeException("Username đã tồn tại");
+        }
+        nhanVien.setPassword(passwordEncoder.encode(nhanVien.getPassword()));
+        nhanVien.setRole("ROLE_STAFF"); 
         return nhanVienRepository.save(nhanVien);
+    }
+
+    @GetMapping("/staff-list")
+    public List<NhanVien> getAllStaff() {
+        return nhanVienRepository.findAll();
     }
 
     @GetMapping("/drivers")
@@ -99,23 +40,18 @@ public class AdminController {
         return taiXeRepository.findAll();
     }
 
-    @PostMapping("/subscription-plans")
-    public GoiThuePin createSubscriptionPlan(@RequestBody GoiThuePin goiThuePin) {
-        return goiThuePinRepository.save(goiThuePin);
+    @GetMapping("/stations")
+    public List<TramPin> getAllStations() { return tramPinRepository.findAll(); }
+
+    @PostMapping("/stations")
+    public TramPin createStation(@RequestBody TramPin tramPin) {
+        if(tramPin.getTrangThaiHoatDong() == null) tramPin.setTrangThaiHoatDong(true);
+        return tramPinRepository.save(tramPin);
     }
-
-
-    @GetMapping("/reports/total-revenue")
-    public Double getTotalRevenue() {
-        return transactionRepository.findAll()
-                .stream()
-                .filter(Transaction::isPaid) 
-                .mapToDouble(Transaction::getAmount)
-                .sum();
-    }
-
-    @GetMapping("/reports/swap-count")
-    public Long getTotalSwapCount() {
-        return transactionRepository.count();
+    
+    @DeleteMapping("/stations/{id}")
+    public ResponseEntity<?> deleteStation(@PathVariable Long id) {
+        tramPinRepository.deleteById(id);
+        return ResponseEntity.ok("Đã xóa trạm thành công");
     }
 }
