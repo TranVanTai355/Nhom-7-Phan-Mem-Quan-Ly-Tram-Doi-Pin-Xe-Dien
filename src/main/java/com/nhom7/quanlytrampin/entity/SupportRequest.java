@@ -24,7 +24,6 @@ public class SupportRequest {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    // Dùng String thay cho enum
     @Column(nullable = false)
     private String status = "NEW";
 
@@ -44,7 +43,6 @@ public class SupportRequest {
         updatedAt = LocalDateTime.now();
     }
 
-    // Getters / Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public Long getUserId() { return userId; }
