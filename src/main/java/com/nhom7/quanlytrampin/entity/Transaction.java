@@ -2,8 +2,6 @@ package com.nhom7.quanlytrampin.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
-// Thêm import Pin
 import com.nhom7.quanlytrampin.entity.Pin; 
 
 @Entity
@@ -16,11 +14,11 @@ public class Transaction {
 
     @ManyToOne
     @JoinColumn(name = "old_battery_id")
-    private Pin oldBattery; // Sửa Battery -> Pin
+    private Pin oldBattery; 
 
     @ManyToOne
     @JoinColumn(name = "new_battery_id")
-    private Pin newBattery; // Sửa Battery -> Pin
+    private Pin newBattery; 
 
     @Column(name = "driver_id")
     private Long driverId;
@@ -29,10 +27,10 @@ public class Transaction {
     private LocalDateTime timestamp;
 
     @Column(name = "status")
-    private String status; // Pending, Completed, Cancelled
+    private String status; 
 
     @Column(name = "payment_method")
-    private String paymentMethod; // OnSite, Online, Subscription
+    private String paymentMethod; 
 
     @Column(name = "amount")
     private double amount;
@@ -40,13 +38,13 @@ public class Transaction {
     @Column(name = "is_paid")
     private boolean isPaid;
 
-    // Constructors
+    
     public Transaction() {
         this.timestamp = LocalDateTime.now();
         this.isPaid = false;
     }
 
-    // Getters and Setters
+    
     public Long getId() {
         return id;
     }
@@ -55,22 +53,22 @@ public class Transaction {
         this.id = id;
     }
 
-    // Sửa Battery -> Pin
+    
     public Pin getOldBattery() {
         return oldBattery;
     }
 
-    // Sửa Battery -> Pin
+    
     public void setOldBattery(Pin oldBattery) {
         this.oldBattery = oldBattery;
     }
 
-    // Sửa Battery -> Pin
+    
     public Pin getNewBattery() {
         return newBattery;
     }
 
-    // Sửa Battery -> Pin
+    
     public void setNewBattery(Pin newBattery) {
         this.newBattery = newBattery;
     }
